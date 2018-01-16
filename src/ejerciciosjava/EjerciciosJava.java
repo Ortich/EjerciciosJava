@@ -29,8 +29,28 @@ public class EjerciciosJava {
     
     public boolean palindromo(String frase){
     boolean palindromo = true;
-    String fraseSimple= frase.replaceAll("\\W","");
-    for(int i = 0; i < fraseSimple.length();i++){
+    String fraseSimple= frase.toUpperCase();
+    fraseSimple = fraseSimple.replaceAll("Á","A");
+    fraseSimple = fraseSimple.replaceAll("Ä","A");
+    
+    fraseSimple = fraseSimple.replaceAll("É","E");
+    fraseSimple = fraseSimple.replaceAll("Ë","E");
+    
+    fraseSimple = fraseSimple.replaceAll("Í","I");
+    fraseSimple = fraseSimple.replaceAll("Ï","I");
+    
+    fraseSimple = fraseSimple.replaceAll("Ó","O");
+    fraseSimple = fraseSimple.replaceAll("Ö","O");
+    
+    fraseSimple = fraseSimple.replaceAll("Ú","U");
+    fraseSimple = fraseSimple.replaceAll("Ü","U");
+    
+    fraseSimple = fraseSimple.replaceAll("Ñ","n");
+    
+    fraseSimple = fraseSimple.replaceAll("\\W","");
+    
+    
+    for(int i = 0; i < fraseSimple.length()/2;i++){
 	if(fraseSimple.charAt(i)!=fraseSimple.charAt(fraseSimple.length()-i-1)&& palindromo==true){
 	    palindromo = false;
 	}
@@ -74,7 +94,22 @@ public class EjerciciosJava {
 	ejercicio1.ejemplosString();
 	
 	//Pruebas para palindromo
-	System.out.println(ejercicio1.palindromo("acaso hubo buhos aca"));
+	System.out.println("Acaso hubo buhos acá");
+	System.out.println(ejercicio1.palindromo("Acaso hubo buhos aca"));
+	
+	System.out.println("DABALE ARROZ A LA ZORRA EL ABAD");
+	System.out.println(ejercicio1.palindromo("DABALE ARROZ A LA ZORRA EL ABAD"));
+	
+	System.out.println("Allí por la tropa portado, traído a ese paraje de maniobras, "
+		+ "una tipa como capitán usar boina me dejara, " +
+		 "pese a odiar toda tropa por tal ropilla");
+	System.out.println(ejercicio1.palindromo("Allí por la tropa portado, traído a ese paraje de maniobras, una tipa como capitán usar boina me dejara, pese a odiar toda tropa por tal ropilla"));
+	
+	System.out.println("Esto no es un palindrome");
+	System.out.println(ejercicio1.palindromo("Esto no es un palindrome"));
+	
+	System.out.println("Pañoneto otenoñap");
+	System.out.println(ejercicio1.palindromo("Pañoneto otenoñap"));
 	
     }
     
