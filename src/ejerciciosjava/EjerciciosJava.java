@@ -81,6 +81,63 @@ public class EjerciciosJava {
 	System.out.println(cadena1.indexOf("culo"));//tambien puede buscar palabras que no estan y sale -1
     }
     
+    public boolean isograma (String frase){
+	boolean esIsograma = true;
+	int letrasRepetidas = 0;
+	String comprobados = frase;
+	for(int i = 0; i < frase.length(); i++){
+	    letrasRepetidas = 0;
+	    for(int j = 0; j < comprobados.length(); j++){
+		if (frase.charAt(i)==comprobados.charAt(j)){
+		    letrasRepetidas++;
+		}
+	    }
+	    if(letrasRepetidas>1){
+		esIsograma = false;
+	    }
+	}
+	
+	return esIsograma;
+    }
+    
+    public void calendario(int retraso){
+	//int retraso = X;
+	int diasSemana= 0;
+	String [] calendario = new String[31];
+	for(int i = 0; i<retraso; i++){
+	    if(diasSemana<7){
+		System.out.print("XX ");
+		diasSemana++;
+	    }
+	    else{
+		System.out.println();
+		System.out.print("XX ");
+		diasSemana = 1;
+	    }
+	}
+	for(int i = 0; i<calendario.length; i++){
+	    if(diasSemana<7){
+		if(i<9){
+		    System.out.print("0");
+		}
+		System.out.print((i+1)+" ");
+		diasSemana++;
+	    }
+	    else{
+		System.out.println();
+		if(i<9){
+		    System.out.print("0");
+		}
+		System.out.print((i+1)+" ");
+		diasSemana = 1;
+	    }
+	}
+	for(int i = diasSemana; i <7;i++){
+	    System.out.print("XX ");
+	}
+	
+    }
+    
     /**
      * @param args the command line arguments
      */
@@ -89,10 +146,12 @@ public class EjerciciosJava {
 	//Pruebas para maximo
 	int [] listaNumeros = {150, 31,27, 2, 5, 99};
 	System.out.println(Arrays.toString(ejercicio1.maximo(listaNumeros)));
-
+	
+	System.out.println("------------------------------------------------------------------------");
 	//Pruebas para ejemplosString
 	ejercicio1.ejemplosString();
 	
+	System.out.println("------------------------------------------------------------------------");
 	//Pruebas para palindromo
 	System.out.println("Acaso hubo buhos acá");
 	System.out.println(ejercicio1.palindromo("Acaso hubo buhos aca"));
@@ -111,6 +170,23 @@ public class EjerciciosJava {
 	System.out.println("Pañoneto otenoñap");
 	System.out.println(ejercicio1.palindromo("Pañoneto otenoñap"));
 	
+	System.out.println("------------------------------------------------------------------------");
+	//Pruebas para isograma
+	System.out.println("abc");
+	System.out.println(ejercicio1.isograma("abc"));
+	
+	System.out.println("abca");
+	System.out.println(ejercicio1.isograma("abca"));
+	
+	System.out.println("murciélago");
+	System.out.println(ejercicio1.isograma("murciélago"));
+	
+	System.out.println("patata");
+	System.out.println(ejercicio1.isograma("patata"));
+	
+	System.out.println("------------------------------------------------------------------------");
+	//Pruebas para calendario
+	ejercicio1.calendario(5);
     }
     
 }
