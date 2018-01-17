@@ -138,6 +138,38 @@ public class EjerciciosJava {
 	
     }
     
+    public boolean escaleraDePalabras(char [][]escalera){
+    boolean esEscalera = true;
+    int letrasDiferentes = 0;
+    for(int fila = 0; fila<escalera.length-1; fila++ ){
+	letrasDiferentes = 0;
+	if(escalera[fila].length == escalera[fila+1].length){
+	    for(int columna = 0; columna<escalera[fila].length; columna++){
+		    if(escalera[fila][columna]!= escalera[fila+1][columna]){
+			letrasDiferentes++;
+		    }
+		    if(letrasDiferentes>1){
+			esEscalera = false;
+		    }
+		}
+	    }
+	else{
+	    System.out.println("Las palabras tienen distinta longitud");
+    }
+	}
+    return esEscalera;
+    }
+    
+    public int adn(char [][] cadenaADN){
+    int fallos = 0;
+    if(cadenaADN[0].length == cadenaADN[1].length ){
+	for(int fila = 0; fila < cadenaADN.length; fila++){
+	    if(cadenaADN[0][fila] =='A'&&cadenaADN[1][fila] =='T'){
+	    }
+	}
+    }
+    return fallos;
+    }
     /**
      * @param args the command line arguments
      */
@@ -187,6 +219,32 @@ public class EjerciciosJava {
 	System.out.println("------------------------------------------------------------------------");
 	//Pruebas para calendario
 	ejercicio1.calendario(5);
+	
+	System.out.println("------------------------------------------------------------------------");
+	//Pruebas para esEscalera
+	char [][] listaPalabras = {
+	{'P', 'A', 'T', 'A'},
+	{'P', 'A', 'T', 'O'},
+	{'R', 'A', 'T', 'O'},
+	{'R', 'A', 'M', 'O'},
+	{'G', 'A', 'M', 'O'},
+	{'G', 'A', 'T', 'O'},
+	{'M', 'A', 'T', 'O'},
+	};
+	char [][] listaPalabras2 = {
+	{'P', 'A', 'T', 'A'},
+	{'P', 'O', 'T', 'O'},
+	{'R', 'A', 'T', 'O'},
+	{'R', 'A', 'M', 'O'},
+	{'G', 'A', 'M', 'O'},
+	{'G', 'A', 'T', 'O'},
+	{'M', 'A', 'T', 'O'},
+	};
+	
+	System.out.println("Lista Verdadero");
+	System.out.println(ejercicio1.escaleraDePalabras(listaPalabras));
+	System.out.println("Lista Falso");
+	System.out.println(ejercicio1.escaleraDePalabras(listaPalabras2));
     }
     
 }
