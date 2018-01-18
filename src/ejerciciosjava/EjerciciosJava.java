@@ -163,12 +163,54 @@ public class EjerciciosJava {
     public int adn(char [][] cadenaADN){
     int fallos = 0;
     if(cadenaADN[0].length == cadenaADN[1].length ){
-	for(int fila = 0; fila < cadenaADN.length; fila++){
-	    if(cadenaADN[0][fila] =='A'&&cadenaADN[1][fila] =='T'){
-	    }
+	for(int fila = 0; fila < cadenaADN[0].length; fila++){
+	    fallos += hazComprobacion(cadenaADN[0][fila], cadenaADN[1][fila]);
 	}
     }
     return fallos;
+    }
+    
+    public int hazComprobacion(char nucleotido1, char nucleotido2){
+	/*
+	Este método recinirá dos char y hará comprobaciones de los fallos
+	en los nucleotidos.
+	*/
+	int numFallo = 0;
+	if (nucleotido1 == nucleotido2 && nucleotido1!= '-'){
+	    numFallo++;
+	    return numFallo;
+	}
+	if(nucleotido1 == '-'||nucleotido2 == '-'){
+	    numFallo = 2;
+	    return numFallo;
+	}
+	if(nucleotido1 == 'A'){
+	    nucleotido1 = 'T';
+	}
+	if(nucleotido2 == 'A'){
+	    nucleotido2 = 'T';
+	}
+	if(nucleotido1 == 'G'){
+	    nucleotido1 = 'C';
+	}
+	if(nucleotido2 == 'G'){
+	    nucleotido2 = 'C';
+	}
+	if(nucleotido1 != nucleotido2){
+	    numFallo++;
+	}
+	return numFallo;
+	
+    }
+    
+    public boolean cabeUnaCaja(boolean [][] camion, int ancho, int alto){
+	boolean cabe = false;
+	ancho -= 1;
+	alto -= 1;
+	for(int altoCamion = 0;altoCamion<camion.length; altoCamion++){
+	    
+	}
+	return cabe;
     }
     /**
      * @param args the command line arguments
@@ -245,6 +287,98 @@ public class EjerciciosJava {
 	System.out.println(ejercicio1.escaleraDePalabras(listaPalabras));
 	System.out.println("Lista Falso");
 	System.out.println(ejercicio1.escaleraDePalabras(listaPalabras2));
+	
+	
+	System.out.println("------------------------------------------------------------------------");
+	//Pruebas para hazComprobacion
+	System.out.println("A-A");
+	System.out.println(ejercicio1.hazComprobacion('A', 'A'));
+	System.out.println("A-T");
+	System.out.println(ejercicio1.hazComprobacion('A', 'T'));
+	System.out.println("T-A");
+	System.out.println(ejercicio1.hazComprobacion('T', 'A'));
+	System.out.println("G-C");
+	System.out.println(ejercicio1.hazComprobacion('G', 'C'));
+	System.out.println("C-G");
+	System.out.println(ejercicio1.hazComprobacion('C', 'G'));
+	System.out.println("A-G");
+	System.out.println(ejercicio1.hazComprobacion('A', 'G'));
+	System.out.println("A-C");
+	System.out.println(ejercicio1.hazComprobacion('A', 'C'));
+	System.out.println("T-G");
+	System.out.println(ejercicio1.hazComprobacion('T', 'G'));
+	System.out.println("T-C");
+	System.out.println(ejercicio1.hazComprobacion('T', 'C'));
+	System.out.println("G-A");
+	System.out.println(ejercicio1.hazComprobacion('G', 'A'));
+	System.out.println("--A");
+	System.out.println(ejercicio1.hazComprobacion('-', 'A'));
+	System.out.println("A--");
+	System.out.println(ejercicio1.hazComprobacion('A', '-'));
+	
+	System.out.println("------------------------------------------------------------------------");
+	//Pruebas para ADN
+	char [][] cadenaADN1 = {
+	{'A', 'C', 'G', 'T'},
+	{'T', 'G', 'C', 'A'}
+	};
+	char [][] cadenaADN2 = {
+	{'A', '-', 'C', '-', 'G', '-', 'T', '-', 'A', 'C', 'G', 'T'},
+	{'T', 'T', 'G', 'G', 'C', 'C', 'A', 'A', 'T', 'G', 'C', 'A'}
+	};
+	char [][] cadenaADN3 = {
+	{'A', 'A', 'A', 'A', 'A', 'A', 'A', 'A'},
+	{'T', 'T', 'T', 'A', 'T', 'T', 'T', 'T'}
+	};
+	char [][] cadenaADN4 = {
+	{'G', 'A', 'T', 'T', 'A', 'C', 'A'},
+	{'C', 'T', 'A', 'T', 'T', '-', 'T'}
+	};
+	char [][] cadenaADN5 = {
+	{'C', 'A', 'T', '-', 'T', 'A', 'G', '-', 'A', 'C', 'T'},
+	{'G', 'T', 'A', 'T', 'A', 'T', 'C', 'C', 'A', 'A', 'A'}
+	};
+	char [][] cadenaADN6 = {
+	{'-', '-', '-', '-', '-', '-', '-', '-'},
+	{'A', 'C', 'G', 'T', 'A', 'C', 'G', 'T'}
+	};
+	char [][] cadenaADN7 = {
+	{'T', 'A', 'A', 'T', 'A', 'A'},
+	{'A', 'T', 'T', 'A', 'T', 'T'}
+	};
+	char [][] cadenaADN8 = {
+	{'G', 'G', 'G', 'A', '-', 'G', 'A', 'A', 'T', 'A', 'T', 'C', 'T', 'G', 'G', 'A', 'C', 'T'},
+	{'C', 'C', 'C', 'T', 'A', 'C', 'T', 'T', 'A', '-', 'A', 'G', 'A', 'C', 'C', 'G', 'G', 'T'}
+	};
+	char [][] cadenaDesenlazada = {
+	{'T', '-', 'A', 'T', 'A', 'A'},
+	{'A', '-', 'T', 'A', 'T', 'T'}
+	};
+	char [][] cadenaIguales = {
+	{'T', 'A', 'A', 'T', 'A', 'A'},
+	{'T', 'T', 'T', 'A', 'T', 'T'}
+	};
+	
+	System.out.println("Cadena 1 - 0");
+	System.out.println(ejercicio1.adn(cadenaADN1));
+	System.out.println("Cadena 2 - 8");
+	System.out.println(ejercicio1.adn(cadenaADN2));
+	System.out.println("Cadena 3 - 1");
+	System.out.println(ejercicio1.adn(cadenaADN3));
+	System.out.println("Cadena 4 - 3");
+	System.out.println(ejercicio1.adn(cadenaADN4));
+	System.out.println("Cadena 5 - 6");
+	System.out.println(ejercicio1.adn(cadenaADN5));
+	System.out.println("Cadena 6 - 16");
+	System.out.println(ejercicio1.adn(cadenaADN6));
+	System.out.println("Cadena 7 - 0");
+	System.out.println(ejercicio1.adn(cadenaADN7));
+	System.out.println("Cadena 8 - 6");
+	System.out.println(ejercicio1.adn(cadenaADN8));
+	System.out.println("Cadena Desenlazada - 2");
+	System.out.println(ejercicio1.adn(cadenaDesenlazada));
+	System.out.println("Cadena Iguales - 1");
+	System.out.println(ejercicio1.adn(cadenaIguales));
     }
     
 }
