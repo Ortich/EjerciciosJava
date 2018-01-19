@@ -140,7 +140,7 @@ public class EjerciciosJava {
     
     public boolean escaleraDePalabras(char [][]escalera){
     boolean esEscalera = true;
-    int letrasDiferentes = 0;
+    int letrasDiferentes;
     for(int fila = 0; fila<escalera.length-1; fila++ ){
 	letrasDiferentes = 0;
 	if(escalera[fila].length == escalera[fila+1].length){
@@ -205,10 +205,45 @@ public class EjerciciosJava {
     
     public boolean cabeUnaCaja(boolean [][] camion, int ancho, int alto){
 	boolean cabe = false;
-	ancho -= 1;
-	alto -= 1;
 	for(int altoCamion = 0;altoCamion<camion.length; altoCamion++){
-	    
+	    for(int anchoCamion = 0; anchoCamion<camion[0].length; anchoCamion++){
+		if(camion[altoCamion][anchoCamion]==false){
+		    cabe = cabeCajaAux(camion, anchoCamion, altoCamion, ancho, alto);
+		    if(cabe){
+			return cabe;
+		    }
+		}
+	    }
+	}
+	return cabe;
+    }
+    
+    public boolean cabeCajaAux(boolean[][] camion, int posXCamion, int posYCamion, int anchoCaja, int altoCaja){
+	boolean cabe = true;
+	if(posYCamion+altoCaja<=camion.length&&posXCamion+anchoCaja<=camion[0].length){
+	    for(int posY = posYCamion; posY <posYCamion+altoCaja;posY++){
+		for(int posX = posXCamion; posX <posXCamion+anchoCaja;posX++){
+		    if(camion[posY][posX]){
+		    cabe= false;
+		    }
+		}
+	    }
+	}
+	else{
+	    cabe= false;
+	} 
+	//Con este método dará la vuelta a la caja para ver si cabe en otro sentido
+	if(!cabe){
+	    cabe = true;
+	    if(posYCamion+anchoCaja<=camion.length&&posXCamion+altoCaja<=camion[0].length){
+		 for(int posY = posYCamion; posY <posYCamion+anchoCaja;posY++){
+		    for(int posX = posXCamion; posX <posXCamion+altoCaja;posX++){
+			 if(camion[posY][posX]){
+			cabe= false;
+			}
+		    }
+		}
+	    }
 	}
 	return cabe;
     }
@@ -379,6 +414,17 @@ public class EjerciciosJava {
 	System.out.println(ejercicio1.adn(cadenaDesenlazada));
 	System.out.println("Cadena Iguales - 1");
 	System.out.println(ejercicio1.adn(cadenaIguales));
+	
+	System.out.println("------------------------------------------------------------------------");
+	//Pruebas para Mudanzas
+	boolean[][] camion = {
+	{true,	true,	true,	false,	false,	false,	true,	true	},
+	{true,	true,	true,	false,	false,	false,	true,	true	},
+	{true,	true,	true,	false,	false,	false,	true,	true	},
+	{true,	true,	true,	true,   true,	true,	true,	true	},
+	{true,	true,	true,	true,	true,	true,	true,	true	}
+	};
+	System.out.println(ejercicio1.cabeUnaCaja(camion, 3, 2));
     }
     
 }
