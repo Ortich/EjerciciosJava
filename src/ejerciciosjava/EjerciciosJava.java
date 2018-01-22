@@ -135,14 +135,14 @@ public class EjerciciosJava {
 	    if (diasSemana < 7) {
 		System.out.print("XX ");
 		diasSemana++;
-	    } else {//Cuando los dias de la semana lle
+	    } else {								//Cuando los dias de la semana lleguen a 7, hace un salto de línea
 		System.out.println();
 		System.out.print("XX ");
 		diasSemana = 1;
 	    }
 	}
-	for (int i = 0; i < calendario.length; i++) {
-	    if (diasSemana < 7) {
+	for (int i = 0; i < calendario.length; i++) {				//Ahora imprime los 31 días del mes
+	    if (diasSemana < 7) {						//A los 9 primeros les pone un 0 por delante
 		if (i < 9) {
 		    System.out.print("0");
 		}
@@ -157,23 +157,30 @@ public class EjerciciosJava {
 		diasSemana = 1;
 	    }
 	}
-	for (int i = diasSemana; i < 7; i++) {
+	for (int i = diasSemana; i < 7; i++) {					//Una vez termine, pinta 'XX' hasta que termine la semana
 	    System.out.print("XX ");
 	}
 	System.out.println();
     }
-
+    
+    /**
+     * Este método irá mirando palabras en una matriz e irá comparándolas. Si cambia
+     * una, y solo una de las letras, en cada par, dará verdadero. Si no, dá falso.
+     * 
+     * @param escalera Entrada de la Matriz de palabras
+     * @return Verdadero si es la escalera.
+     */
     public boolean escaleraDePalabras(char[][] escalera) {
-	boolean esEscalera = true;
-	int letrasDiferentes;
-	for (int fila = 0; fila < escalera.length - 1; fila++) {
-	    letrasDiferentes = 0;
-	    if (escalera[fila].length == escalera[fila + 1].length) {
+	boolean esEscalera = true;						//Primero declaramos el boolean que nos dira si es escalera o no y lo inicializamos a True
+	int letrasDiferentes;							//Ahora declaramos un int para contar las letras que difieren entre pares de palabras.
+	for (int fila = 0; fila < escalera.length - 1; fila++) {		//Ahora recorremos las palabras
+	    letrasDiferentes = 0;						//Establecemos las letras diferentes a 0
+	    if (escalera[fila].length == escalera[fila + 1].length) {		//Y ahora solo compararemos si la longitud de las palabras es la misma.
 		for (int columna = 0; columna < escalera[fila].length; columna++) {
-		    if (escalera[fila][columna] != escalera[fila + 1][columna]) {
+		    if (escalera[fila][columna] != escalera[fila + 1][columna]) {//Si alguna letra difiere, sumara 1 a letrasDiferentes.
 			letrasDiferentes++;
 		    }
-		    if (letrasDiferentes > 1) {
+		    if (letrasDiferentes > 1) {					//Si difieren mas de una letra, entonces no es una escalera.
 			esEscalera = false;
 		    }
 		}
@@ -183,31 +190,49 @@ public class EjerciciosJava {
 	}
 	return esEscalera;
     }
-
+    
+    /**
+     * Este método recorrerá una cadena de ADN y hará un cálculo de los errores que hay en ella
+     * siguiendo estas pautas:
+     * - Si la 'A' no casa con la 'T' o viceversa: 1 fallo
+     * - Si la 'C' no casa con la 'G' o viceversa: 1 fallo
+     * - Si cualquiera de las letras casa con un espacio vacío : 2 fallos
+     * 
+     * @param cadenaADN La matriz que contendrá la 
+     * @return Da el número de fallos en la cadena de ADN
+     */
     public int adn(char[][] cadenaADN) {
-	int fallos = 0;
-	if (cadenaADN[0].length == cadenaADN[1].length) {
-	    for (int fila = 0; fila < cadenaADN[0].length; fila++) {
-		fallos += hazComprobacion(cadenaADN[0][fila], cadenaADN[1][fila]);
+	int fallos = 0;//Inicializamos un int para contar los fallos
+	if (cadenaADN[0].length == cadenaADN[1].length) {//Ahora hacemos la comprobacion de la longitud de las cadenas, TIENEN  que ser iguales
+	    for (int fila = 0; fila < cadenaADN[0].length; fila++) {//Hacemos el recorrido de las cadenas para ir comprobando los fallos
+		fallos += hazComprobacion(cadenaADN[0][fila], cadenaADN[1][fila]);//Ahora llama a otro método para comprobar los fallos que tiene y los suuma al contador de fallos
 	    }
+	}
+	else{//Si la cadena no tiene la misma longitud nos lo dirá por consola.
+	    System.out.println("Las cadenas no son válidas");
 	}
 	return fallos;
     }
-
+    
+    /**
+     * Este método nos dará los fallos de los pares de la cadena de ADN siguiendo las pautas dadas.
+     * Recibirá dos char que comparará y nos dará el número de fallos que debería.
+     * 
+     * @param nucleotido1 Char de la primera cadena
+     * @param nucleotido2 Char de la segunda cadena
+     * @return El número de fallos del par  de Char
+     */
     public int hazComprobacion(char nucleotido1, char nucleotido2) {
-	/*
-	Este método recinirá dos char y hará comprobaciones de los fallos
-	en los nucleotidos.
-	 */
-	int numFallo = 0;
-	if (nucleotido1 == nucleotido2 && nucleotido1 != '-') {
+	int numFallo = 0;//Primero inicializa los fallos a 0
+	if (nucleotido1 == nucleotido2 && nucleotido1 != '-') {			//Ahora comprueba si los nucleotidos son iguales
 	    numFallo++;
 	    return numFallo;
 	}
-	if (nucleotido1 == '-' || nucleotido2 == '-') {
+	if (nucleotido1 == '-' || nucleotido2 == '-') {				//Aquí comprueba si hay algún par vacío 
 	    numFallo = 2;
 	    return numFallo;
 	}
+										//Para el resto de comprobaciones transforma las 'A' en 'T' y las 'G' en 'C' para luego compararlas 
 	if (nucleotido1 == 'A') {
 	    nucleotido1 = 'T';
 	}
@@ -220,20 +245,36 @@ public class EjerciciosJava {
 	if (nucleotido2 == 'G') {
 	    nucleotido2 = 'C';
 	}
-	if (nucleotido1 != nucleotido2) {
+	if (nucleotido1 != nucleotido2) {					//Ahora las compara, si no son iguales, suma 1 fallo.
 	    numFallo++;
 	}
 	return numFallo;
 
     }
-
+    
+    /**
+     * Este método recibe un camión y una caja, y te dice si cabe la caja en el camión.
+     * Este método buscará sitios libres para poner la caja. Una vez encontrados verá si puede 
+     * meter la caja. Para ello se apoyará en un método adicional que hará las comprobaciones.
+     * 
+     * @param camion Es una matriz con las cajas que están en el camión.
+     * @param ancho Un int de la anchura de la caja
+     * @param alto Un int con la altura de la caja
+     * @return Te devuelve si puede meterse o no.
+     */
     public boolean cabeUnaCaja(boolean[][] camion, int ancho, int alto) {
-	boolean cabe = false;
-	for (int altoCamion = 0; altoCamion < camion.length; altoCamion++) {
+	boolean cabe = false;							//Declaro un boolean que nos dirá si cabe o no la caja
+	if(camion.length < ancho || camion.length <alto){			//Primero compruebo que la caja no sea mas grande que el camión
+	    return false;							//Si lo es devuelvo falso directamente.
+	}
+	if(camion[0].length < ancho || camion[0].length <alto){
+	    return false;
+	}
+	for (int altoCamion = 0; altoCamion < camion.length; altoCamion++) {	//Ahora voy recorriendo el camión
 	    for (int anchoCamion = 0; anchoCamion < camion[0].length; anchoCamion++) {
-		if (camion[altoCamion][anchoCamion] == false) {
+		if (camion[altoCamion][anchoCamion] == false) {			//Si encuentro un sitio sin cajas, compruebo si me cabe.
 		    cabe = cabeCajaAux(camion, anchoCamion, altoCamion, ancho, alto);
-		    if (cabe) {
+		    if (cabe) {							//Si me cabe la caja, devuelvo true y termino el proceso.
 			return cabe;
 		    }
 		}
@@ -242,6 +283,15 @@ public class EjerciciosJava {
 	return cabe;
     }
 
+    /**
+     * 
+     * @param camion
+     * @param posXCamion
+     * @param posYCamion
+     * @param anchoCaja
+     * @param altoCaja
+     * @return 
+     */
     public boolean cabeCajaAux(boolean[][] camion, int posXCamion, int posYCamion, int anchoCaja, int altoCaja) {
 	boolean cabe = true;
 	if (posYCamion + altoCaja <= camion.length && posXCamion + anchoCaja <= camion[0].length) {
@@ -266,7 +316,8 @@ public class EjerciciosJava {
 			}
 		    }
 		}
-	    }
+	    }else {
+	    cabe = false;}
 	}
 	return cabe;
     }
@@ -414,6 +465,10 @@ public class EjerciciosJava {
 	    {'T', 'A', 'A', 'T', 'A', 'A'},
 	    {'T', 'T', 'T', 'A', 'T', 'T'}
 	};
+	char[][] cadenaDiferentesTamaños = {
+	    {'T', 'A', 'A', 'T', 'A', 'A'},
+	    {'T', 'T', 'T', 'A', 'T', 'T','A'}
+	};
 
 	System.out.println("Cadena 1 - 0");
 	System.out.println(ejercicio1.adn(cadenaADN1));
@@ -435,17 +490,19 @@ public class EjerciciosJava {
 	System.out.println(ejercicio1.adn(cadenaDesenlazada));
 	System.out.println("Cadena Iguales - 1");
 	System.out.println(ejercicio1.adn(cadenaIguales));
+	System.out.println("Cadenas Diferentes - 0");
+	System.out.println(ejercicio1.adn(cadenaDiferentesTamaños));
 
 	System.out.println("------------------------------------------------------------------------");
 	//Pruebas para Mudanzas
 	boolean[][] camion = {
-	    {true, true, true, false, false, false, true, true},
-	    {true, true, true, false, false, false, true, true},
-	    {true, true, true, false, false, false, true, true},
-	    {true, true, true, true, true, true, true, true},
+	    {true, true, true, false, false, false, false, true},
+	    {true, true, true, false, false, false, false, true},
+	    {true, true, true, false, false, false, false, true},
+	    {true, true, true, false, false, false, false, true},
 	    {true, true, true, true, true, true, true, true}
 	};
-	System.out.println(ejercicio1.cabeUnaCaja(camion, 3, 2));
+	System.out.println(ejercicio1.cabeUnaCaja(camion, 4, 4));
     }
 
 }
