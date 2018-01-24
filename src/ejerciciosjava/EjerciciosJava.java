@@ -284,20 +284,23 @@ public class EjerciciosJava {
     }
 
     /**
+     * Este metodo comprueba si la caja cabe en las coordenadas dadas.
+     * Si no cabe en un sentido, se prueba en el otro. Si no cabe en ninguno de 
+     * los dos, pasa a devolver falso.
      * 
-     * @param camion
-     * @param posXCamion
-     * @param posYCamion
-     * @param anchoCaja
-     * @param altoCaja
-     * @return 
+     * @param camion Matriz con el camión y las cajas que tiene. 
+     * @param posXCamion Pos X donde irá la caja
+     * @param posYCamion PosY donde irá la caja
+     * @param anchoCaja Ancho de la caja
+     * @param altoCaja Alto de la caja
+     * @return Devuelve un boolean diciendo si cabe o no.
      */
     public boolean cabeCajaAux(boolean[][] camion, int posXCamion, int posYCamion, int anchoCaja, int altoCaja) {
-	boolean cabe = true;
-	if (posYCamion + altoCaja <= camion.length && posXCamion + anchoCaja <= camion[0].length) {
-	    for (int posY = posYCamion; posY < posYCamion + altoCaja; posY++) {
+	boolean cabe = true;//Declaramos el boolean que nos dirá si cabe o no.
+	if (posYCamion + altoCaja <= camion.length && posXCamion + anchoCaja <= camion[0].length) {//Ahora comprobamos que la caja no se salga del ca,ion
+	    for (int posY = posYCamion; posY < posYCamion + altoCaja; posY++) {//Ahora va recorriendo el hueco
 		for (int posX = posXCamion; posX < posXCamion + anchoCaja; posX++) {
-		    if (camion[posY][posX]) {
+		    if (camion[posY][posX]) {//Si encuentra un hueco ocupado, entonces no cabe y pasaremos a girar la caja
 			cabe = false;
 		    }
 		}
@@ -305,8 +308,7 @@ public class EjerciciosJava {
 	} else {
 	    cabe = false;
 	}
-	//Con este método dará la vuelta a la caja para ver si cabe en otro sentido
-	if (!cabe) {
+	if (!cabe) {//Ahora vamos a dar la vuelta a la caja, y hacemos lo mismo que arriba, pero con la caja girada
 	    cabe = true;
 	    if (posYCamion + anchoCaja <= camion.length && posXCamion + altoCaja <= camion[0].length) {
 		for (int posY = posYCamion; posY < posYCamion + anchoCaja; posY++) {
