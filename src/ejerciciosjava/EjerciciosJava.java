@@ -323,7 +323,58 @@ public class EjerciciosJava {
 	}
 	return cabe;
     }
-
+    
+    /**
+     * Este método comprueba si la segunda palabra está también en la primera. 
+     * Si es así, devolverá la posición en la que se encuentra en forma de int, 
+     * si no, devuelve -1.
+     * 
+     * @param str1 Primera palabra
+     * @param str2 Segunda palabra
+     * @return La posicion de la segunda palabra en la primera o -1 si no está
+     */
+    public int strStr(String str1, String str2){
+	int posicion = 0;							//Primero declaramos un int para guardar la posicion de la palabra
+	boolean encontrado = false;						//Ahora declaramos el boolean que nos dirá si está la palabra o no.
+//	str1 = str1.toUpperCase();						//Si lo queremos no Key Sensitive solo tenemos que descomentar esto 
+//	str2 = str2.toUpperCase();
+	if(str1.length() == 0 ||str2.length() == 0){				//Si alguna de las dos palabras se encuentra vacía, retornará el -1
+	    posicion = -1;
+	    System.out.println("Una de las dos palabras esta vacía, por lo que no hago la comprobacion");
+	    return posicion;
+	}//Ahora que nos hems quitado la excepción, pasamos a la chicha.
+	else if(str1.length()>= str2.length()){//Primero comprobamos que 
+	    for(int i = 0; i < str1.length(); i++){
+		if(str1.charAt(i)==str2.charAt(0)&&!encontrado){
+		    posicion = i;
+		    encontrado = buscaString(str1, str2, i);
+		    if(!encontrado){
+			posicion = -1;
+		    }
+		}	    
+	    }
+	}
+	else{
+	    posicion = -1;
+	    System.out.println("La segunda palabra es más grande que la segunda, por lo tanto no puede estar dentro de la primera");
+	}
+	return posicion;
+    }
+    
+    private boolean buscaString(String str1, String str2, int pos){
+	boolean encontrado = true;
+	if(pos+ str2.length() <=str1.length()){
+	    for(int i = 0; i<str2.length();i++){
+	        if(str2.charAt(i)!=str1.charAt(pos+i)){
+		    encontrado = false;
+	     }
+	    }
+	}
+	else{
+	    encontrado = false;
+	}
+	return encontrado;
+    }
     /**
      * @param args the command line arguments
      */
@@ -505,6 +556,29 @@ public class EjerciciosJava {
 	    {true, true, true, true, true, true, true, true}
 	};
 	System.out.println(ejercicio1.cabeUnaCaja(camion, 4, 4));
+	
+	System.out.println("------------------------------------------------------------------------");
+	//Pruebas para StrStr
+	System.out.println("patataHolapatta, Hola");
+	System.out.println(ejercicio1.strStr("patataHolapatta", "Hola"));
+	System.out.println("patataHolapatta, Hoa");
+	System.out.println(ejercicio1.strStr("patataHolapatta", "Hoa"));
+	System.out.println("patataHolapatta,lksdfskdjfdsjkghdkjgh");
+	System.out.println(ejercicio1.strStr("patataHolapatta", "lksdfskdjfdsjkghdkjgh"));
+	System.out.println("patataHolapatta, ");
+	System.out.println(ejercicio1.strStr("patataHolapatta", ""));
+	System.out.println(", Hola");
+	System.out.println(ejercicio1.strStr("", "Hola"));
+	System.out.println("patataHol, Hola");
+	System.out.println(ejercicio1.strStr("patataHol", "Hola"));
+	System.out.println("1234, 2345");
+	System.out.println(ejercicio1.strStr("1234", "2345"));
+	System.out.println("patataHoñapatata, Hoña");
+	System.out.println(ejercicio1.strStr("patataHoñapatata", "Hoña"));
+	System.out.println("patataHoñapatata, Hona");
+	System.out.println(ejercicio1.strStr("patataHoñapatata", "Hona"));
+	
+	
     }
 
 }
