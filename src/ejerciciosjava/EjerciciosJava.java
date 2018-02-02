@@ -376,6 +376,57 @@ public class EjerciciosJava {
 	return encontrado;
     }
     /**
+     * codingbat.com
+     * Consider the leftmost and righmost appearances of some value in an array.
+     * We'll say that the "span" is the number of elements between the two inclusive. 
+     * A single value has a span of 1. Returns the largest span found in the 
+     * given array. (Efficiency is not a priority.)
+     * @param nums Array a comprobar
+     * @return El Span Maximo
+     */
+    private int maxSpan(int[] nums) {
+	int maxSpan = 1;
+	int contador;
+	if(nums.length == 0){
+	    return 0;
+	}
+	for(int i = 0; i <nums.length; i++){
+	    contador =0;
+	    for(int j = i; j<nums.length; j++){
+		contador++;
+		if(nums[i] == nums[j]&& maxSpan<contador){
+		    maxSpan = contador;
+		}
+	    }
+	}
+    return maxSpan;
+    }
+    
+    public int[] fix34(int[] nums) {
+	int[] arrayFinal = new int [nums.length];
+	for(int i = 0; i<nums.length; i++){
+	    if(nums[i]!=3 && nums[i]!=4 && arrayFinal[i]!=4){
+		arrayFinal[i] = nums[i];
+	    }
+	    else if(nums[i]==3){
+		arrayFinal[i] = nums[i];
+		int contador = i;
+		boolean encontradoDelante = false;
+		for(int j = i; nums[j]!=4&&j+1<nums.length; j++){
+		    contador++;
+		    if(nums[contador]== 4){
+			encontradoDelante = true;
+		    }
+		}
+		if(encontradoDelante){		    
+		    arrayFinal[i+1] = nums[contador];
+		    arrayFinal[contador] = nums[i+1];
+		}
+	    }
+	}
+	return arrayFinal;
+    }
+    /**
      * @param args the command line arguments
      */
     public static void main(String[] args) {
@@ -578,7 +629,25 @@ public class EjerciciosJava {
 	System.out.println("patataHoñapatata, Hona");
 	System.out.println(ejercicio1.strStr("patataHoñapatata", "Hona"));
 	
+	System.out.println("------------------------------------------------------------------------");
+	//Pruebas spanMaximo
+	int[] nums ={3, 9, 9};
+	System.out.println(ejercicio1.maxSpan(nums));
 	
+	System.out.println("------------------------------------------------------------------------");
+	//Pruebas fix34
+	int[] fixed ={1,2,3,1,2,4};
+	System.out.println("1, 2, 3, 1, 2, 4");
+	System.out.println(Arrays.toString(ejercicio1.fix34(fixed)));
+	System.out.println();
+	int[] fixed2 ={1,2,3,1,4,3,2,4};
+	System.out.println("1, 2, 3, 1, 4, 3, 2, 4");
+	System.out.println(Arrays.toString(ejercicio1.fix34(fixed2)));
+	System.out.println();
+	int[] fixed3 ={1,2,3,5,3,4,1};
+	System.out.println("1, 2, 3, 5, 3, 4, 1");
+	System.out.println(Arrays.toString(ejercicio1.fix34(fixed3)));
+	System.out.println();
     }
 
 }
