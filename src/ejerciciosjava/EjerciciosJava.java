@@ -404,27 +404,73 @@ public class EjerciciosJava {
     
     public int[] fix34(int[] nums) {
 	int[] arrayFinal = new int [nums.length];
+	int posicionAux;
+	boolean encontrado;
 	for(int i = 0; i<nums.length; i++){
-	    if(nums[i]!=3 && nums[i]!=4 && arrayFinal[i]!=4){
+	    encontrado = false;
+	    if(nums[i]==3){
 		arrayFinal[i] = nums[i];
-	    }
-	    else if(nums[i]==3){
-		arrayFinal[i] = nums[i];
-		int contador = i;
-		boolean encontradoDelante = false;
-		for(int j = i; nums[j]!=4&&j+1<nums.length; j++){
-		    contador++;
-		    if(nums[contador]== 4){
-			encontradoDelante = true;
+		posicionAux = i;
+		while (posicionAux+1<nums.length&&!encontrado){
+		    if(nums[posicionAux]!=4){
+			posicionAux++;
+			encontrado = false;
+		    }
+		    else if(arrayFinal[posicionAux] != 0){
+			posicionAux ++;
+			encontrado = false;
+		    }
+		    else{
+			encontrado = true;
 		    }
 		}
-		if(encontradoDelante){		    
-		    arrayFinal[i+1] = nums[contador];
-		    arrayFinal[contador] = nums[i+1];
+		if(nums[posicionAux]!=4){
+		    posicionAux = i;
+		    while(nums[posicionAux]!=4 &&posicionAux>=0){
+			posicionAux--;
+			if(posicionAux>0){
+			    if(nums[posicionAux-1]==3){
+				posicionAux--;
+			    }
+			}
+		    }
+		}
+		arrayFinal[i+1] = nums[posicionAux];
+		arrayFinal[posicionAux]= nums[i+1];
+		i++;
+	    }
+	    else if(nums[i]==4 && arrayFinal[i] == 0){
+		arrayFinal[i] = nums[i];
+	    }
+	    else if(nums[i]!=4){
+		arrayFinal[i] = nums[i];
+	    }    
+	}
+	return arrayFinal;
+    }
+    
+   /**
+    * Given two arrays of ints sorted in increasing order, outer and inner, 
+    * return true if all of the numbers in inner appear in outer. The best 
+    * solution makes only a single "linear" pass of both arrays, taking 
+    * advantage of the fact that both arrays are already in sorted order.
+    * @param outer
+    * @param inner
+    * @return 
+    */
+    public boolean linearIn(int[] outer, int[] inner){
+	boolean encontrado;
+	int contador = 0;
+	for(int i = 0; i<inner.length; i++){
+	    encontrado = false;
+	    for(int j = 0; j<outer.length && !encontrado; j++){
+		if(inner[i] == outer[j]){
+		    contador++;
+		    encontrado = true;
 		}
 	    }
 	}
-	return arrayFinal;
+	return inner.length==contador;
     }
     /**
      * @param args the command line arguments
@@ -636,18 +682,25 @@ public class EjerciciosJava {
 	
 	System.out.println("------------------------------------------------------------------------");
 	//Pruebas fix34
-	int[] fixed ={1,2,3,1,2,4};
-	System.out.println("1, 2, 3, 1, 2, 4");
-	System.out.println(Arrays.toString(ejercicio1.fix34(fixed)));
-	System.out.println();
-	int[] fixed2 ={1,2,3,1,4,3,2,4};
-	System.out.println("1, 2, 3, 1, 4, 3, 2, 4");
-	System.out.println(Arrays.toString(ejercicio1.fix34(fixed2)));
-	System.out.println();
-	int[] fixed3 ={1,2,3,5,3,4,1};
-	System.out.println("1, 2, 3, 5, 3, 4, 1");
+//	int[] fixed ={1,2,3,1,2,4};
+//	System.out.println("1, 2, 3, 1, 2, 4");
+//	System.out.println(Arrays.toString(ejercicio1.fix34(fixed)));
+//	System.out.println();
+//	int[] fixed2 ={1,2,3,1,4,3,2,4};
+//	System.out.println("1, 2, 3, 1, 4, 3, 2, 4");
+//	System.out.println(Arrays.toString(ejercicio1.fix34(fixed2)));
+//	System.out.println();
+	int[] fixed3 ={5, 3, 5, 4, 5, 4, 5, 4, 3, 5, 3, 5};
+	System.out.println("5, 3, 5, 4, 5, 4, 5, 4, 3, 5, 3, 5");
 	System.out.println(Arrays.toString(ejercicio1.fix34(fixed3)));
 	System.out.println();
+	
+	System.out.println("------------------------------------------------------------------------");
+	//Pruebas LinearIn
+	int[] linear1 = {-1, 0, 3, 3, 3, 10, 12};
+	int[] linear2 = {0, 3, 12, 14};
+	System.out.println(ejercicio1.linearIn(linear1, linear2));
+	
     }
 
 }
