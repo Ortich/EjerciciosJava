@@ -404,47 +404,37 @@ public class EjerciciosJava {
     
     public int[] fix34(int[] nums) {
 	int[] arrayFinal = new int [nums.length];
-	int posicionAux;
+	int contadorParejas = 0;
+	int contadorAux;
 	boolean encontrado;
-	for(int i = 0; i<nums.length; i++){
+	for(int i = 0; i<nums.length; i++ ){
+	    contadorAux = 0;
 	    encontrado = false;
 	    if(nums[i]==3){
 		arrayFinal[i] = nums[i];
-		posicionAux = i;
-		while (posicionAux+1<nums.length&&!encontrado){
-		    if(nums[posicionAux]!=4){
-			posicionAux++;
-			encontrado = false;
+		for(int j = 0; j<nums.length&&!encontrado; j++){
+		    if(nums[j]==4){
+		      contadorAux++;
 		    }
-		    else if(arrayFinal[posicionAux] != 0){
-			posicionAux ++;
-			encontrado = false;
-		    }
-		    else{
-			encontrado = true;
-		    }
-		}
-		if(nums[posicionAux]!=4){
-		    posicionAux = i;
-		    while(nums[posicionAux]!=4 &&posicionAux>=0){
-			posicionAux--;
-			if(posicionAux>0){
-			    if(nums[posicionAux-1]==3){
-				posicionAux--;
-			    }
+		    if(contadorAux>contadorParejas){
+			if(arrayFinal[i+1]==0){
+			    arrayFinal[i+1] = nums[j];
+			    arrayFinal[j]= nums[i+1];
+			    contadorParejas++;
+			    encontrado = true;
+			}
+			else{
+			    arrayFinal[j] = arrayFinal[i+1];
+			    arrayFinal[i+1] = nums[j]; 
+			    contadorParejas++;
+			    encontrado = true;
 			}
 		    }
 		}
-		arrayFinal[i+1] = nums[posicionAux];
-		arrayFinal[posicionAux]= nums[i+1];
-		i++;
 	    }
-	    else if(nums[i]==4 && arrayFinal[i] == 0){
+	    else if(arrayFinal[i] ==0){
 		arrayFinal[i] = nums[i];
 	    }
-	    else if(nums[i]!=4){
-		arrayFinal[i] = nums[i];
-	    }    
 	}
 	return arrayFinal;
     }
@@ -690,8 +680,8 @@ public class EjerciciosJava {
 //	System.out.println("1, 2, 3, 1, 4, 3, 2, 4");
 //	System.out.println(Arrays.toString(ejercicio1.fix34(fixed2)));
 //	System.out.println();
-	int[] fixed3 ={5, 3, 5, 4, 5, 4, 5, 4, 3, 5, 3, 5};
-	System.out.println("5, 3, 5, 4, 5, 4, 5, 4, 3, 5, 3, 5");
+	int[] fixed3 ={3, 1, 1, 3, 4, 4};
+	System.out.println("3, 1, 1, 3, 4, 4");
 	System.out.println(Arrays.toString(ejercicio1.fix34(fixed3)));
 	System.out.println();
 	
