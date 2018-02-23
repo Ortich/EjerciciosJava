@@ -438,9 +438,8 @@ public class EjerciciosJava {
 	}
 	return arrayFinal;
     }
-   /*
+ 
     
-    */ 
     public int[] fix45(int[] nums) {
 	int [] arrayFinal = new int [nums.length];
 	boolean encontrado;
@@ -499,11 +498,30 @@ public class EjerciciosJava {
 	return inner.length==contador;
     }
     
-    public int rpn(String[] cadena){
-	int resultado = 0;
-	String [] auxiliar = new String[cadena.length];
+    public double rpn(String[] cadena){
+	double resultado = 0;
+	double [] auxiliar = new double [cadena.length];
+	if(cadena.length>0){
+	    resultado = Double.parseDouble(cadena[0].trim());
+	}
 	for(int i = 0; i<cadena.length; i++){
-	   
+	    if(cadena[i]!="+"&&cadena[i]!="-"
+		    &&cadena[i]!="*"&&cadena[i]!="/"){
+		auxiliar[i]=Double.parseDouble(cadena[i].trim());
+	    }
+	    else{
+		switch(cadena[i]){
+		    case "+": resultado = (resultado + auxiliar[i-1]);
+			break;
+		    case "-": resultado = (resultado - auxiliar[i-1]);;
+			break;
+		    case "*": resultado = (resultado * auxiliar[i-1]);;
+			break;	
+		    case "/": resultado = (resultado / auxiliar[i-1]);;
+			break;
+			
+		}
+	    }
 	}
 	return resultado;
     }
@@ -744,55 +762,8 @@ public class EjerciciosJava {
 	
 	System.out.println("------------------------------------------------------------------------");
 	//Pruebas rpn
+	String[] rpn1 ={"2","3","*","4","+"};
+	System.out.println(ejercicio1.rpn(rpn1));
     }
 
 }
-/*
-int [] arrayFinal = new int [nums.length];
-	int [] comprobaciones = new int [nums.length];
-	int contadorParejas = 0;
-	int contadorAux;
-	boolean encontrado;
-	for(int i = 0; i<nums.length; i++ ){
-	    contadorAux = 0;
-	    encontrado = false;
-	    if(nums[i]==4){
-		arrayFinal[i] = nums[i];
-		for(int j = 0; j<nums.length&&!encontrado; j++){
-		    if(nums[j]==5){
-		      contadorAux++;
-		    }
-		    if(contadorAux>contadorParejas){
-			if(arrayFinal[i+1]==0){
-			    arrayFinal[i+1] = nums[j];
-			    arrayFinal[j]= nums[i+1];
-			    contadorParejas++;
-			    encontrado = true;
-			}
-			else{
-			    arrayFinal[j] = arrayFinal[i+1];
-			    arrayFinal[i+1] = nums[j]; 
-			    contadorParejas++;
-			    encontrado = true;
-			}
-		    }
-		}
-	    }
-	    else if(nums[i]==5){
-		if(i == 0||nums[i-1]!=4){
-		    //Buscar el primer 4 sin pareja
-		    for (int k = i; k<nums.length; k++){
-			
-		    }
-		}
-		else{
-		    //dejarlo como esta
-		    arrayFinal[i] = nums[i];
-		}
-	    }
-	    else if(arrayFinal[i] ==0){
-		arrayFinal[i] = nums[i];
-	    }
-	}
-	return arrayFinal;
-*/
