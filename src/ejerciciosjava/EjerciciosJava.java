@@ -438,7 +438,43 @@ public class EjerciciosJava {
 	}
 	return arrayFinal;
     }
+   /*
     
+    */ 
+    public int[] fix45(int[] nums) {
+	int [] arrayFinal = new int [nums.length];
+	boolean encontrado;
+	for(int i = 0; i<nums.length; i++ ){
+	    encontrado = false;
+	    if(nums[i]==4){
+		arrayFinal[i]=nums[i];
+		if(nums[i+1]==5){
+		    arrayFinal[i+1]=nums[i+1];
+		}
+		else{
+		    for(int j = 0; j<nums.length&&!encontrado; j++){
+			if(j == 0 && nums[j]==5&&arrayFinal[j]==5){
+			    arrayFinal[j]= nums[i+1];
+			    arrayFinal[i+1] = nums[j];
+			    encontrado = true;
+			}
+			else if( j>0&&(nums[j] == 5 && nums[j-1]!=4)){
+			    if(arrayFinal[j]==5 ||arrayFinal[j]==0){
+				arrayFinal[j]= nums[i+1];
+				arrayFinal[i+1] = nums[j];
+				encontrado = true;
+			    }
+			}
+		    }
+		}
+	    }
+	    else if(arrayFinal[i] ==0){
+		arrayFinal[i] = nums[i];
+	    }
+	}
+	return arrayFinal;
+    }
+
    /**
     * Given two arrays of ints sorted in increasing order, outer and inner, 
     * return true if all of the numbers in inner appear in outer. The best 
@@ -461,6 +497,15 @@ public class EjerciciosJava {
 	    }
 	}
 	return inner.length==contador;
+    }
+    
+    public int rpn(String[] cadena){
+	int resultado = 0;
+	String [] auxiliar = new String[cadena.length];
+	for(int i = 0; i<cadena.length; i++){
+	   
+	}
+	return resultado;
     }
     /**
      * @param args the command line arguments
@@ -672,18 +717,24 @@ public class EjerciciosJava {
 	
 	System.out.println("------------------------------------------------------------------------");
 	//Pruebas fix34
-//	int[] fixed ={1,2,3,1,2,4};
-//	System.out.println("1, 2, 3, 1, 2, 4");
-//	System.out.println(Arrays.toString(ejercicio1.fix34(fixed)));
-//	System.out.println();
-//	int[] fixed2 ={1,2,3,1,4,3,2,4};
-//	System.out.println("1, 2, 3, 1, 4, 3, 2, 4");
-//	System.out.println(Arrays.toString(ejercicio1.fix34(fixed2)));
-//	System.out.println();
+	int[] fixed ={1,2,3,1,2,4};
+	System.out.println("1, 2, 3, 1, 2, 4");
+	System.out.println(Arrays.toString(ejercicio1.fix34(fixed)));
+	System.out.println();
+	int[] fixed2 ={1,2,3,1,4,3,2,4};
+	System.out.println("1, 2, 3, 1, 4, 3, 2, 4");
+	System.out.println(Arrays.toString(ejercicio1.fix34(fixed2)));
+	System.out.println();
 	int[] fixed3 ={3, 1, 1, 3, 4, 4};
 	System.out.println("3, 1, 1, 3, 4, 4");
 	System.out.println(Arrays.toString(ejercicio1.fix34(fixed3)));
 	System.out.println();
+	
+	System.out.println("------------------------------------------------------------------------");
+	//Pruebas fix45
+	int[] fixed4 ={1, 4, 1, 5, 5, 4, 1};
+	System.out.println("1, 4, 1, 5, 5, 4, 1");
+	System.out.println(Arrays.toString(ejercicio1.fix45(fixed4)));
 	
 	System.out.println("------------------------------------------------------------------------");
 	//Pruebas LinearIn
@@ -691,6 +742,57 @@ public class EjerciciosJava {
 	int[] linear2 = {0, 3, 12, 14};
 	System.out.println(ejercicio1.linearIn(linear1, linear2));
 	
+	System.out.println("------------------------------------------------------------------------");
+	//Pruebas rpn
     }
 
 }
+/*
+int [] arrayFinal = new int [nums.length];
+	int [] comprobaciones = new int [nums.length];
+	int contadorParejas = 0;
+	int contadorAux;
+	boolean encontrado;
+	for(int i = 0; i<nums.length; i++ ){
+	    contadorAux = 0;
+	    encontrado = false;
+	    if(nums[i]==4){
+		arrayFinal[i] = nums[i];
+		for(int j = 0; j<nums.length&&!encontrado; j++){
+		    if(nums[j]==5){
+		      contadorAux++;
+		    }
+		    if(contadorAux>contadorParejas){
+			if(arrayFinal[i+1]==0){
+			    arrayFinal[i+1] = nums[j];
+			    arrayFinal[j]= nums[i+1];
+			    contadorParejas++;
+			    encontrado = true;
+			}
+			else{
+			    arrayFinal[j] = arrayFinal[i+1];
+			    arrayFinal[i+1] = nums[j]; 
+			    contadorParejas++;
+			    encontrado = true;
+			}
+		    }
+		}
+	    }
+	    else if(nums[i]==5){
+		if(i == 0||nums[i-1]!=4){
+		    //Buscar el primer 4 sin pareja
+		    for (int k = i; k<nums.length; k++){
+			
+		    }
+		}
+		else{
+		    //dejarlo como esta
+		    arrayFinal[i] = nums[i];
+		}
+	    }
+	    else if(arrayFinal[i] ==0){
+		arrayFinal[i] = nums[i];
+	    }
+	}
+	return arrayFinal;
+*/
